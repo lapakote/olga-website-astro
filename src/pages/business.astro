@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BackLink from '../components/BackLink.astro';
+import AudienceHub from '../components/AudienceHub.astro';
+
+const items = [
+  {
+    title: 'Спикерство',
+    description: 'Выступления для конференций и команд: данные, кейсы лидеров, темы, которые двигают.',
+    href: '/#speaking',
+  },
+  {
+    title: 'Курсы для бизнеса',
+    description: 'Готовые курсы под задачу или пересборка того, что у вас уже есть.',
+    href: '/#courses',
+  },
+  {
+    title: 'Консалтинг и научный эдвайзинг',
+    description: 'Стратегические сессии, исследования перед решениями, научное сопровождение лидерства.',
+    href: '/#consulting',
+  },
+  {
+    title: 'Мероприятия',
+    description: 'Где и когда Ольгу можно пригласить выступить.',
+    href: '/#events',
+  },
+];
+---
+
+<BaseLayout
+  title="Бизнесу: Абрамова Ольга"
+  description="Решения для бизнеса: спикерство, курсы, консалтинг и научный эдвайзинг от Ольги Абрамовой."
+>
+  <BackLink />
+  <AudienceHub
+    heading="Бизнесу"
+    lead="Наука как конкурентное преимущество компании: выступления, курсы, консалтинг и эдвайзинг."
+    items={items}
+  />
+</BaseLayout>

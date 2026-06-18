@@ -1,0 +1,71 @@
+:root {
+  /* Color — from DESIGN.md: Bright Observatory */
+  --color-bg: #eeeeee;
+  --color-ink: #282828;
+  --color-accent: #ff9737;
+  --color-mist: #d2dbda;
+
+  /* Typography */
+  --font-display: 'Unbounded', system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-scrim: 10;
+  --z-content: 20;
+  --z-scrollcue: 30;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-feature-settings: 'kern' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/* Scroll-reveal: only animates once JS confirms it can finish the job (.js on <html>).
+   Without JS, .reveal elements have no opacity rule and are visible by default. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 700ms var(--ease-out-quart), transform 700ms var(--ease-out-quart);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,224 @@
+---
+const facts: Array<[string, string]> = [
+  ['4', 'языка: русский, английский, французский, древнеегипетский'],
+  ['10', 'лет в топ-менеджменте'],
+  ['12', 'лет в бизнес-консалтинге'],
+  ['10', 'лет в академических исследованиях и преподавании'],
+  ['20+', 'авторских курсов на стыке психологии, антропологии, IT и бизнеса'],
+  ['1000', 'студентов в год в НИУ ВШЭ'],
+];
+
+// Grouped into panels of two for the horizontal scroller.
+const panels = [facts.slice(0, 2), facts.slice(2, 4), facts.slice(4, 6)];
+const panelCount = panels.length;
+---
+
+<section class="facts" aria-labelledby="facts-heading" data-panel-count={panelCount}>
+  <h2 id="facts-heading" class="facts__heading reveal" style="--i:0">Факты</h2>
+
+  <!-- Default, always-visible fallback: a plain stacked list. JS upgrades to the horizontal
+       scroller only when motion is allowed and the viewport is wide enough. -->
+  <dl class="facts__simple">
+    {
+      facts.map(([value, label]) => (
+        <div class="facts__simple-item reveal" style="--i:1">
+          <dt>{value}</dt>
+          <dd>{label}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class="facts__scroller" hidden>
+    <div class="facts__pin">
+      <div class="facts__track">
+        {
+          panels.map((group) => (
+            <div class="facts__panel">
+              {group.map(([value, label]) => (
+                <div class="facts__stat">
+                  <span class="facts__value">{value}</span>
+                  <span class="facts__label">{label}</span>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function setUpFactsScroller(section: HTMLElement) {
+    const scroller = section.querySelector<HTMLElement>('.facts__scroller');
+    const simple = section.querySelector<HTMLElement>('.facts__simple');
+    const pin = section.querySelector<HTMLElement>('.facts__pin');
+    const track = section.querySelector<HTMLElement>('.facts__track');
+    if (!scroller || !simple || !pin || !track) return;
+
+    const panelCount = Number(section.dataset.panelCount) || 1;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active = false;
+    let rafId = 0;
+
+    function update() {
+      const rect = scroller.getBoundingClientRect();
+      const trackableHeight = scroller.offsetHeight - window.innerHeight;
+      const progress = trackableHeight > 0 ? Math.min(1, Math.max(0, -rect.top / trackableHeight)) : 0;
+      const shift = (panelCount - 1) * window.innerWidth;
+      track.style.transform = `translate3d(${-progress * shift}px, 0, 0)`;
+    }
+
+    function onScroll() {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
+    }
+
+    function enableScroller() {
+      if (active) return;
+      active = true;
+      simple.style.display = 'none';
+      scroller.hidden = false;
+      scroller.style.height = `${panelCount * 100}vh`;
+      update();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    }
+
+    function disableScroller() {
+      if (!active) return;
+      active = false;
+      simple.style.display = '';
+      scroller.hidden = true;
+      scroller.style.height = '';
+      track.style.transform = 'none';
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+
+    function evaluate() {
+      const wide = window.innerWidth >= 880;
+      if (wide && !prefersReducedMotion.matches) enableScroller();
+      else disableScroller();
+    }
+
+    evaluate();
+    window.addEventListener('resize', evaluate);
+    prefersReducedMotion.addEventListener('change', evaluate);
+  }
+
+  document.querySelectorAll<HTMLElement>('.facts').forEach(setUpFactsScroller);
+</script>
+
+<style>
+  .facts {
+    position: relative;
+    background: var(--color-bg);
+    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 5rem) clamp(4.5rem, 10vw, 7rem);
+  }
+
+  .facts__heading {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    max-width: 78rem;
+    margin-inline: auto;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  /* --- Default fallback: plain stacked list --- */
+  .facts__simple {
+    margin: 0 auto;
+    max-width: 78rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .facts__simple-item dt {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .facts__simple-item dd {
+    margin: 0.4rem 0 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    max-width: 32ch;
+  }
+
+  @media (min-width: 640px) {
+    .facts__simple {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .facts__simple {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* --- Enhanced: pinned horizontal scroller --- */
+  .facts__scroller {
+    position: relative;
+    margin: 0 calc(-1 * clamp(1.25rem, 6vw, 5rem));
+  }
+
+  .facts__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .facts__track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+  }
+
+  .facts__panel {
+    flex: 0 0 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    padding: 0 clamp(1.5rem, 8vw, 7rem);
+  }
+
+  .facts__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 22rem;
+  }
+
+  .facts__value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .facts__label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.6vw, 1.1875rem);
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+</style>

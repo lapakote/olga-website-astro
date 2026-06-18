@@ -1,0 +1,172 @@
+---
+const education = [
+  'НИУ ВШЭ: психолог (социальная психология), психолог-исследователь и психолог-преподаватель',
+  'Бизнес-программа ESSEC Business School, Париж',
+  'Французский колледж МГУ (CUF), социология',
+  'Институт этнологии и антропологии РАН, антропология',
+];
+
+const honors = [
+  'Лучший преподаватель НИУ ВШЭ (2018, 2021, 2023, 2025)',
+  'Победитель Фонда образовательных инноваций НИУ ВШЭ (2024)',
+  'Победитель конкурса научных работ НИУ ВШЭ, Научпоп (2025)',
+  'Выбор курсов в топ студентами НИУ ВШЭ, 2018–2026',
+];
+---
+
+<section class="about" aria-labelledby="about-heading">
+  <div class="about__inner">
+    <h2 id="about-heading" class="about__heading reveal" style="--i:0">Обо мне</h2>
+
+    <p class="about__lead reveal" style="--i:1">
+      Социальный и организационный психолог, антрополог со специализацией на инновационном
+      лидерстве в IT, Обществе будущего и психологии успеха.
+    </p>
+
+    <div class="about__grid">
+      <div class="about__col">
+        <p class="about__body reveal" style="--i:2">
+          Смотрю на каждый проект масштабно и стратегически, с учётом того, что происходит в
+          науке, бизнесе и технологиях по всему миру. Участвую в крупных научных и коучинговых
+          конференциях, поддерживаю международную сеть контактов и приношу в российские
+          компании актуальные мировые практики.
+        </p>
+        <p class="about__emphasis reveal" style="--i:3">
+          Канд. псих. наук и PhD в организационной психологии: НИУ ВШЭ и ИЭА РАН
+        </p>
+      </div>
+
+      <div class="about__col">
+        <ol class="about__timeline reveal" style="--i:2" aria-label="Образование">
+          {education.map((item) => <li>{item}</li>)}
+        </ol>
+        <ol class="about__timeline about__timeline--honors reveal" style="--i:4" aria-label="Награды и признание">
+          {honors.map((item) => <li>{item}</li>)}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--color-bg);
+    padding: clamp(4rem, 9vw, 7rem) 0 clamp(4.5rem, 10vw, 8rem);
+  }
+
+  .about__inner {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .about__heading {
+    margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .about__lead {
+    margin: 0 0 clamp(2.5rem, 6vw, 4rem);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+    line-height: 1.25;
+    color: var(--color-ink);
+    max-width: 42ch;
+    text-wrap: pretty;
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .about__col {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 5vw, 2.5rem);
+  }
+
+  .about__body {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+    max-width: 42ch;
+  }
+
+  .about__emphasis {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    line-height: 1.35;
+    color: var(--color-ink);
+    max-width: 32ch;
+  }
+
+  .about__timeline {
+    margin: 0;
+    padding: 0 0 0 clamp(1.25rem, 3vw, 1.5rem);
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2.5vw, 1.25rem);
+  }
+
+  .about__timeline::before {
+    content: '';
+    position: absolute;
+    top: 0.5em;
+    bottom: 0.5em;
+    left: 0;
+    width: 1px;
+    background: color-mix(in oklab, var(--color-ink) 22%, transparent);
+  }
+
+  .about__timeline li {
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: color-mix(in oklab, var(--color-ink) 82%, transparent);
+    max-width: 38ch;
+  }
+
+  .about__timeline li::before {
+    content: '';
+    position: absolute;
+    top: 0.5em;
+    left: calc(-1 * clamp(1.25rem, 3vw, 1.5rem));
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    box-shadow: 0 0 0 1.5px var(--color-ink);
+    transform: translateX(calc(clamp(1.25rem, 3vw, 1.5rem) / 2 - 3.5px));
+  }
+
+  .about__timeline--honors li {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .about__timeline--honors li::before {
+    box-shadow: 0 0 0 1.5px var(--color-accent);
+  }
+
+  @media (min-width: 880px) {
+    .about__grid {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+</style>

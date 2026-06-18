@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BackLink from '../components/BackLink.astro';
+import AudienceHub from '../components/AudienceHub.astro';
+
+const items = [
+  {
+    title: 'Курсы ДПО ВШЭ',
+    description: 'Дополнительное профессиональное образование в НИУ ВШЭ.',
+  },
+  {
+    title: 'Авторский курс Ольги',
+    description: 'Готовится к запуску. Подписавшиеся узнают первыми.',
+    badge: 'Скоро',
+  },
+  {
+    title: 'Статьи на IQ Media',
+    description: 'Авторская колонка о психологии удачи, инновационном лидерстве и обществе будущего.',
+    href: 'https://iq-media.ru/authors/276',
+    external: true,
+  },
+  {
+    title: 'Life-коучинг',
+    description: 'Личное сопровождение, психология удачи, масштабирование мышления.',
+    href: '/#coaching',
+  },
+  {
+    title: 'Мероприятия',
+    description: 'Где и когда Ольгу можно услышать в ближайшее время.',
+    href: '/#events',
+  },
+];
+---
+
+<BaseLayout
+  title="Для себя: Абрамова Ольга"
+  description="Программы для себя: курсы ДПО ВШЭ, авторский курс Ольги Абрамовой, статьи на IQ Media, life-коучинг и мероприятия."
+>
+  <BackLink />
+  <AudienceHub
+    heading="Для себя"
+    lead="Если запрос про вас, а не про компанию, вот с чего можно начать прямо сейчас."
+    items={items}
+  />
+</BaseLayout>

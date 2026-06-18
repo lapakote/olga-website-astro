@@ -1,0 +1,188 @@
+---
+interface Talk {
+  role: string;
+  topic: string;
+}
+
+interface EventItem {
+  date: string;
+  name: string;
+  meta: string;
+  talks?: Talk[];
+}
+
+const events: EventItem[] = [
+  {
+    date: '1 октября 2026',
+    name: 'Фитнес Форум',
+    meta: 'Москва, цифровое пространство',
+  },
+  {
+    date: '2–3 октября 2026',
+    name: 'Конференция «Метрополисы»',
+    meta: 'Тюмень',
+  },
+  {
+    date: '13 ноября 2026',
+    name: 'REFORUM',
+    meta: '',
+    talks: [
+      { role: 'Хэдлайнер', topic: 'Психология удачи как лучшая стратегия прорыва' },
+      { role: 'Спикер', topic: 'Общество 5.0. Три сценария технологического общества в России' },
+      { role: 'Спикер', topic: 'Угрозы и возможности супер-умных городов. Человеческий фактор лидерства' },
+      { role: 'Спикер', topic: 'Тема согласуется' },
+    ],
+  },
+  {
+    date: 'Ноябрь 2026',
+    name: 'Симпозиум будущего',
+    meta: 'Москва, Нац. центр «Россия»',
+  },
+];
+---
+
+<section class="events" id="events" aria-labelledby="events-heading">
+  <div class="events__inner">
+    <h2 id="events-heading" class="events__heading reveal" style="--i:0">Мероприятия</h2>
+
+    <ol class="events__list">
+      {
+        events.map((event, index) => (
+          <li class="events__item reveal" style={`--i:${index + 1}`}>
+            <span class="events__date">{event.date}</span>
+            <div class="events__body">
+              <p class="events__name">{event.name}</p>
+              {event.meta && <p class="events__meta">{event.meta}</p>}
+              {event.talks && (
+                <ul class="events__talks">
+                  {event.talks.map((talk) => (
+                    <li>
+                      <span class="events__talk-role">{talk.role}</span>
+                      <span class="events__talk-topic">{talk.topic}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="events__closing reveal" style="--i:5">Буду рада встрече!</p>
+  </div>
+</section>
+
+<style>
+  .events {
+    background: var(--color-bg);
+    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 5rem) clamp(4.5rem, 10vw, 7rem);
+  }
+
+  .events__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .events__heading {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .events__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .events__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: clamp(1.5rem, 3.5vw, 2rem) 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .events__date {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-accent);
+  }
+
+  .events__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+    color: var(--color-ink);
+  }
+
+  .events__meta {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  }
+
+  .events__talks {
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .events__talks li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+
+  .events__talk-role {
+    flex: 0 0 auto;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--color-ink);
+  }
+
+  .events__talk-topic {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    max-width: 50ch;
+  }
+
+  .events__closing {
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .events__item {
+      flex-direction: row;
+      gap: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .events__date {
+      flex: 0 0 12rem;
+    }
+
+    .events__body {
+      flex: 1;
+    }
+  }
+</style>
