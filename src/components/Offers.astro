@@ -43,6 +43,7 @@ const offers: Offer[] = [
     imageAlt: 'Ольга Абрамова читает лекцию студентам',
     imageWidth: 1242,
     imageHeight: 828,
+    link: { href: '/courses', label: 'Смотреть курсы' },
   },
   {
     id: 'consulting',
@@ -67,6 +68,7 @@ const offers: Offer[] = [
     imageAlt: 'Ольга Абрамова выступает на конференции по психологии коучинга',
     imageWidth: 1280,
     imageHeight: 960,
+    link: { href: '/coaching', label: 'Смотреть программы' },
   },
 ];
 ---
@@ -117,7 +119,7 @@ const offers: Offer[] = [
 <style>
   .offers__row {
     background: var(--color-bg);
-    padding: clamp(3rem, 8vw, 6rem) 0;
+    padding: clamp(4rem, 10vw, 8rem) 0;
   }
 
   .offers__row--alt {
@@ -131,7 +133,7 @@ const offers: Offer[] = [
   }
 
   .offers__label {
-    margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+    margin: 0 0 clamp(2.5rem, 6vw, 4rem);
     font-family: var(--font-display);
     font-weight: 900;
     font-size: clamp(2.5rem, 7vw, 4.5rem);
@@ -143,7 +145,7 @@ const offers: Offer[] = [
   .offers__body-row {
     display: flex;
     flex-direction: column;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
+    gap: clamp(2rem, 5vw, 3rem);
   }
 
   /* Full-bleed photo: aspect-ratio comes from the real source image per offer
@@ -157,7 +159,7 @@ const offers: Offer[] = [
   .offers__content {
     display: flex;
     flex-direction: column;
-    gap: clamp(1rem, 3vw, 1.5rem);
+    gap: clamp(1.25rem, 3.5vw, 1.75rem);
     min-width: 0;
     max-width: 46rem;
     padding: 0 clamp(1.25rem, 6vw, 5rem);

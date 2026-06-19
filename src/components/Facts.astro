@@ -115,11 +115,11 @@ const panelCount = panels.length;
   .facts {
     position: relative;
     background: var(--color-bg);
-    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 5rem) clamp(4.5rem, 10vw, 7rem);
+    padding: clamp(5rem, 11vw, 9rem) clamp(1.25rem, 6vw, 5rem) clamp(5.5rem, 12vw, 9rem);
   }
 
   .facts__heading {
-    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    margin: 0 0 clamp(2.5rem, 6vw, 3.75rem);
     max-width: 78rem;
     margin-inline: auto;
     font-family: var(--font-display);
@@ -141,8 +141,9 @@ const panelCount = panels.length;
   .facts__simple-item dt {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-size: clamp(2.75rem, 6vw, 4.25rem);
     line-height: 1;
+    letter-spacing: -0.03em;
     color: var(--color-accent);
   }
 
@@ -203,14 +204,15 @@ const panelCount = panels.length;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    max-width: 22rem;
+    max-width: 28rem;
   }
 
   .facts__value {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(3.5rem, 9vw, 7rem);
-    line-height: 1;
+    font-size: clamp(4.5rem, 13vw, 10rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
     color: var(--color-accent);
   }
 

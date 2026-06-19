@@ -1,0 +1,123 @@
+---
+const surveys = [
+  { duration: '10 мин', title: 'Психология удачи и креативность', audience: 'Для всех' },
+  { duration: '10 мин', title: 'Исследование лидерства в школе', audience: 'Для учителей' },
+  { duration: '15 мин', title: 'Исследование технологий умного города', audience: 'Для всех' },
+];
+---
+
+<section class="surveys" id="surveys" aria-labelledby="surveys-heading">
+  <div class="surveys__inner">
+    <h2 id="surveys-heading" class="surveys__heading reveal" style="--i:0">Поучаствуйте в российской науке!</h2>
+    <p class="surveys__lead reveal" style="--i:1">
+      Без опросов социальные науки не развиваются. Каждый пройденный опрос помогает учёным
+      подтверждать гипотезы в исследованиях, а российским именам в социальной психологии и
+      антропологии звучать на мировой научной арене.
+    </p>
+
+    <ul class="surveys__list reveal" style="--i:2">
+      {
+        surveys.map((survey) => (
+          <li class="surveys__item">
+            <span class="surveys__duration">{survey.duration}</span>
+            <div class="surveys__body">
+              <p class="surveys__title">{survey.title}</p>
+              <p class="surveys__audience">{survey.audience}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="surveys__note reveal" style="--i:3">Ссылки на опросы появятся здесь, как только будут готовы.</p>
+  </div>
+</section>
+
+<style>
+  .surveys {
+    background: var(--color-bg);
+    padding: clamp(5rem, 11vw, 9rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .surveys__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .surveys__heading {
+    margin: 0 0 clamp(1.5rem, 4vw, 2.25rem);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .surveys__lead {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    max-width: 65ch;
+  }
+
+  .surveys__list {
+    margin: 0 0 clamp(1.5rem, 4vw, 2rem);
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .surveys__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: clamp(1.25rem, 3vw, 1.5rem) 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .surveys__duration {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-accent);
+  }
+
+  .surveys__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.1875rem, 2.4vw, 1.5rem);
+    color: var(--color-ink);
+  }
+
+  .surveys__audience {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  }
+
+  .surveys__note {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: color-mix(in oklab, var(--color-ink) 55%, transparent);
+  }
+
+  @media (min-width: 768px) {
+    .surveys__item {
+      flex-direction: row;
+      align-items: baseline;
+      gap: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .surveys__duration {
+      flex: 0 0 6rem;
+    }
+  }
+</style>
