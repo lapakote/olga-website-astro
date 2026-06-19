@@ -1,0 +1,189 @@
+---
+interface Props {
+  title: string;
+  topics: string[];
+  alt?: boolean;
+}
+
+const { title, topics, alt = false } = Astro.props;
+const visible = topics.slice(0, 5);
+const rest = topics.slice(5, 10);
+---
+
+<section class={`topic-category ${alt ? 'topic-category--alt' : ''}`}>
+  <div class="topic-category__inner">
+    <h2 class="topic-category__title reveal" style="--i:0">{title}</h2>
+
+    <ul class="topic-category__list reveal" style="--i:1">
+      {
+        visible.map((topic, index) => (
+          <li>
+            <span class="topic-category__num">{String(index + 1).padStart(2, '0')}</span>
+            <span class="topic-category__title-text">{topic}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      rest.length > 0 && (
+        <details class="topic-category__more reveal" style="--i:2">
+          <summary class="topic-category__more-summary">
+            <span class="topic-category__more-label-closed">Ещё {rest.length} тем</span>
+            <span class="topic-category__more-label-open">Свернуть</span>
+            <span class="topic-category__more-arrow" aria-hidden="true" />
+          </summary>
+          <ul class="topic-category__list topic-category__list--more">
+            {
+              rest.map((topic, index) => (
+                <li>
+                  <span class="topic-category__num">{String(index + visible.length + 1).padStart(2, '0')}</span>
+                  <span class="topic-category__title-text">{topic}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </details>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .topic-category {
+    background: var(--color-bg);
+    padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .topic-category--alt {
+    background: var(--color-mist);
+  }
+
+  .topic-category__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .topic-category__title {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .topic-category__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .topic-category__list li {
+    display: flex;
+    gap: clamp(1rem, 3vw, 1.75rem);
+    align-items: baseline;
+    padding: clamp(1.5rem, 4vw, 2.25rem) 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .topic-category__num {
+    flex: 0 0 auto;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(0.9375rem, 1.6vw, 1.0625rem);
+    color: color-mix(in oklab, var(--color-ink) 40%, transparent);
+  }
+
+  .topic-category__title-text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    text-wrap: pretty;
+    max-width: 42ch;
+  }
+
+  .topic-category__list--more {
+    border-top: none;
+  }
+
+  .topic-category__more {
+    margin-top: 0;
+  }
+
+  .topic-category__more-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: clamp(1rem, 2.5vw, 1.25rem) 0;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    list-style: none;
+  }
+
+  .topic-category__more-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .topic-category__more-summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .topic-category__more-label-open {
+    display: none;
+  }
+
+  .topic-category__more[open] .topic-category__more-label-open {
+    display: inline;
+  }
+
+  .topic-category__more[open] .topic-category__more-label-closed {
+    display: none;
+  }
+
+  .topic-category__more-arrow {
+    position: relative;
+    flex: 0 0 auto;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .topic-category__more-arrow::before,
+  .topic-category__more-arrow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: var(--color-accent);
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topic-category__more-arrow::before {
+    width: 100%;
+    height: 1.5px;
+  }
+
+  .topic-category__more-arrow::after {
+    width: 1.5px;
+    height: 100%;
+  }
+
+  .topic-category__more[open] .topic-category__more-arrow::after {
+    transform: scaleY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topic-category__more-arrow::before,
+    .topic-category__more-arrow::after {
+      transition: none;
+    }
+  }
+</style>

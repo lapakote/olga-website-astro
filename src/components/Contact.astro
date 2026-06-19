@@ -1,0 +1,188 @@
+---
+interface Channel {
+  label: string;
+  href?: string;
+}
+
+const channels: Channel[] = [
+  { label: 'YouTube' },
+  { label: 'VK' },
+  { label: 'Tenchat' },
+  { label: 'IQ Медиа', href: 'https://iq-media.ru/authors/276' },
+  { label: 'Сайт НИУ ВШЭ' },
+];
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+  <div class="contact__inner">
+    <h2 id="contact-heading" class="contact__heading reveal" style="--i:0">Действуйте!</h2>
+    <p class="contact__lead reveal" style="--i:1">Напишите прямо сейчас.</p>
+
+    <a class="contact__primary reveal" style="--i:2" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+      Написать в Telegram
+      <span aria-hidden="true">→</span>
+    </a>
+
+    <p class="contact__channel-label reveal" style="--i:3">Также можно найти здесь:</p>
+    <ul class="contact__channels reveal" style="--i:3">
+      {
+        channels.map((channel) =>
+          channel.href ? (
+            <li>
+              <a class="contact__channel-link" href={channel.href} target="_blank" rel="noopener noreferrer">
+                {channel.label}
+              </a>
+            </li>
+          ) : (
+            <li class="contact__channel">{channel.label}</li>
+          )
+        )
+      }
+    </ul>
+  </div>
+
+  <div class="contact__bottom">
+    <span>© 2026 Абрамова Ольга</span>
+    <span>Социальный психолог и антрополог НИУ ВШЭ</span>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--color-ink);
+    color: var(--color-bg);
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.25rem, 6vw, 5rem) clamp(2rem, 5vw, 3rem);
+  }
+
+  .contact__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .contact__heading {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.75rem, 8vw, 5rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--color-bg);
+  }
+
+  .contact__lead {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+    color: color-mix(in oklab, var(--color-bg) 82%, transparent);
+  }
+
+  /* The one decisive accent on this screen: the single working contact channel. */
+  .contact__primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: clamp(2.5rem, 6vw, 4rem);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--color-ink);
+    background: var(--color-accent);
+    padding: 1rem 1.75rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .contact__primary span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .contact__primary:hover,
+  .contact__primary:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .contact__primary:hover span,
+  .contact__primary:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  .contact__primary:focus-visible {
+    outline: 2px solid var(--color-bg);
+    outline-offset: 4px;
+  }
+
+  .contact__channel-label {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: color-mix(in oklab, var(--color-bg) 55%, transparent);
+  }
+
+  .contact__channels {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  .contact__channel,
+  .contact__channel-link {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.6rem 1rem;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .contact__channel {
+    color: color-mix(in oklab, var(--color-bg) 70%, transparent);
+    box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--color-bg) 30%, transparent);
+  }
+
+  .contact__channel-link {
+    color: var(--color-bg);
+    box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--color-bg) 30%, transparent);
+    text-decoration: none;
+    transition: color 220ms var(--ease-out-quart), box-shadow 220ms var(--ease-out-quart);
+  }
+
+  .contact__channel-link:hover,
+  .contact__channel-link:focus-visible {
+    color: var(--color-accent);
+    box-shadow: inset 0 0 0 1.5px var(--color-accent);
+  }
+
+  .contact__channel-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact__primary,
+    .contact__primary span,
+    .contact__channel-link {
+      transition: none;
+    }
+  }
+
+  .contact__bottom {
+    max-width: 64rem;
+    margin: clamp(3rem, 8vw, 5rem) auto 0;
+    padding-top: clamp(1.5rem, 4vw, 2rem);
+    border-top: 1px solid color-mix(in oklab, var(--color-bg) 18%, transparent);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    justify-content: space-between;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: color-mix(in oklab, var(--color-bg) 60%, transparent);
+  }
+</style>

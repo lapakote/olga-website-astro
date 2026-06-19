@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Item {
   title: string;
   description: string;
@@ -11,16 +13,29 @@ interface Props {
   heading: string;
   lead: string;
   items: Item[];
+  portrait: ImageMetadata;
+  portraitWidth: number;
+  portraitHeight: number;
 }
 
-const { heading, lead, items } = Astro.props;
+const { heading, lead, items, portrait, portraitWidth, portraitHeight } = Astro.props;
 ---
 
 <section class="audience-hub" aria-labelledby="audience-hub-heading">
-  <div class="audience-hub__inner">
-    <h1 id="audience-hub-heading" class="audience-hub__heading reveal" style="--i:0">{heading}</h1>
-    <p class="audience-hub__lead reveal" style="--i:1">{lead}</p>
+  <div class="audience-hub__top">
+    <div class="audience-hub__top-text">
+      <h1 id="audience-hub-heading" class="audience-hub__heading reveal" style="--i:0">{heading}</h1>
+      <p class="audience-hub__lead reveal" style="--i:1">{lead}</p>
+    </div>
+    <figure
+      class="audience-hub__portrait photo-tinted reveal"
+      style={`--i:1; aspect-ratio: ${portraitWidth} / ${portraitHeight}`}
+    >
+      <Image src={portrait} alt="Ольга Абрамова" width={portraitWidth} height={portraitHeight} loading="lazy" />
+    </figure>
+  </div>
 
+  <div class="audience-hub__inner">
     <ul class="audience-hub__list">
       {
         items.map((item, index) => {
@@ -58,12 +73,24 @@ const { heading, lead, items } = Astro.props;
 <style>
   .audience-hub {
     background: var(--color-bg);
-    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 5rem) clamp(4.5rem, 10vw, 7rem);
+    padding: clamp(2.5rem, 7vw, 4.5rem) 0 clamp(4.5rem, 10vw, 7rem);
   }
 
   .audience-hub__inner {
     max-width: 64rem;
     margin: 0 auto;
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .audience-hub__top {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  .audience-hub__top-text {
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
   }
 
   .audience-hub__heading {
@@ -76,12 +103,19 @@ const { heading, lead, items } = Astro.props;
   }
 
   .audience-hub__lead {
-    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    margin: 0;
     font-family: var(--font-display);
     font-weight: 500;
     font-size: clamp(1rem, 1.8vw, 1.125rem);
     color: color-mix(in oklab, var(--color-ink) 78%, transparent);
     max-width: 50ch;
+  }
+
+  /* Full-bleed photo: aspect-ratio is set inline per page from the real source
+     image, so object-fit: cover only ever trims a sliver. */
+  .audience-hub__portrait {
+    margin: 0;
+    width: 100%;
   }
 
   .audience-hub__list {
@@ -172,6 +206,27 @@ const { heading, lead, items } = Astro.props;
     a.audience-hub__item-inner,
     .audience-hub__arrow {
       transition: none;
+    }
+  }
+
+  @media (min-width: 700px) {
+    .audience-hub__top {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .audience-hub__top-text {
+      flex: 1 1 auto;
+      padding-right: clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .audience-hub__portrait {
+      flex: 0 0 auto;
+      width: auto;
+      height: clamp(16rem, 28vw, 22rem);
     }
   }
 </style>

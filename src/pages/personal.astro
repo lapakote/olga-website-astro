@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BackLink from '../components/BackLink.astro';
 import AudienceHub from '../components/AudienceHub.astro';
+import portrait from '../assets/images/personal-portrait.jpg';
 
 const items = [
   {
@@ -36,10 +36,12 @@ const items = [
   title="Для себя: Абрамова Ольга"
   description="Программы для себя: курсы ДПО ВШЭ, авторский курс Ольги Абрамовой, статьи на IQ Media, life-коучинг и мероприятия."
 >
-  <BackLink />
   <AudienceHub
     heading="Для себя"
     lead="Если запрос про вас, а не про компанию, вот с чего можно начать прямо сейчас."
     items={items}
+    portrait={portrait}
+    portraitWidth={1280}
+    portraitHeight={960}
   />
 </BaseLayout>

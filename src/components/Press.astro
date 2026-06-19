@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import tass from '../assets/images/logos/tass.png';
+import rbc from '../assets/images/logos/rbc.png';
+import forbesWoman from '../assets/images/logos/forbes-woman.png';
+import sobaka from '../assets/images/logos/sobaka.jpg';
+
+const articles = [
+  'Социально-психологический портрет IT-предпринимателя России',
+  'Методологический скаффолдинг в коучинге',
+  'Общество 5.0',
+];
+
+const mediaMentions: Array<{ name: string; logo: ImageMetadata; width: number; height: number }> = [
+  { name: 'ТАСС', logo: tass, width: 500, height: 500 },
+  { name: 'РБК Тренды', logo: rbc, width: 1000, height: 272 },
+  { name: 'Forbes Women', logo: forbesWoman, width: 560, height: 216 },
+  { name: 'Собака.ru', logo: sobaka, width: 908, height: 623 },
+];
+---
+
+<section class="press" id="press" aria-labelledby="press-heading">
+  <div class="press__inner">
+    <div class="press__col">
+      <h2 id="press-heading" class="press__heading reveal" style="--i:0">Статьи</h2>
+      <p class="press__intro reveal" style="--i:1">Авторский блог на IQ Медиа ВШЭ.</p>
+
+      <ul class="press__articles reveal" style="--i:2">
+        {articles.map((article) => <li>{article}</li>)}
+      </ul>
+
+      <a class="press__link reveal" style="--i:3" href="https://iq-media.ru/authors/276" target="_blank" rel="noopener noreferrer">
+        Смотреть все статьи
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="press__col">
+      <h3 class="press__subheading reveal" style="--i:1">Экспертные комментарии в СМИ</h3>
+      <ul class="press__media reveal" style="--i:2">
+        {
+          mediaMentions.map((mention) => (
+            <li class="press__media-item">
+              <Image
+                src={mention.logo}
+                alt={mention.name}
+                width={mention.width}
+                height={mention.height}
+                loading="lazy"
+                class="logo-tinted press__media-logo"
+                style={`aspect-ratio: ${mention.width} / ${mention.height}`}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .press {
+    background: var(--color-mist);
+    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .press__inner {
+    max-width: 78rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 7vw, 4.5rem);
+  }
+
+  .press__col {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .press__heading,
+  .press__subheading {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .press__heading {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .press__subheading {
+    font-size: clamp(1.375rem, 3vw, 1.875rem);
+    padding-top: clamp(0.25rem, 1vw, 0.5rem);
+  }
+
+  .press__intro {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+  }
+
+  .press__articles {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .press__articles li {
+    padding: clamp(1rem, 2.5vw, 1.25rem) 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    line-height: 1.35;
+    color: var(--color-ink);
+    max-width: 42ch;
+  }
+
+  .press__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-bg);
+    background: var(--color-ink);
+    padding: 0.85rem 1.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background-color 220ms var(--ease-out-quart), color 220ms var(--ease-out-quart),
+      transform 220ms var(--ease-out-quart);
+  }
+
+  .press__link span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .press__link:hover,
+  .press__link:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-ink);
+    transform: translateY(-2px);
+  }
+
+  .press__link:hover span,
+  .press__link:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  .press__link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .press__media {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .press__media-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .press__media-logo {
+    height: clamp(1.75rem, 3.5vw, 2.5rem);
+    width: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .press__link,
+    .press__link span {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 880px) {
+    .press__inner {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BackLink from '../components/BackLink.astro';
 import AudienceHub from '../components/AudienceHub.astro';
+import portrait from '../assets/images/business-portrait.jpg';
 
 const items = [
   {
@@ -31,10 +31,12 @@ const items = [
   title="Бизнесу: Абрамова Ольга"
   description="Решения для бизнеса: спикерство, курсы, консалтинг и научный эдвайзинг от Ольги Абрамовой."
 >
-  <BackLink />
   <AudienceHub
     heading="Бизнесу"
     lead="Наука как конкурентное преимущество компании: выступления, курсы, консалтинг и эдвайзинг."
     items={items}
+    portrait={portrait}
+    portraitWidth={640}
+    portraitHeight={960}
   />
 </BaseLayout>

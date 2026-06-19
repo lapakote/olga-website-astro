@@ -69,3 +69,40 @@ a {
     transform: none;
   }
 }
+
+/* Shared tone treatment for real photography: keeps the photo's real color, just
+   calms its saturation and washes it lightly with ink so incidental colors (a pink
+   blazer, a rainbow slide) stop fighting the page's restrained palette while still
+   reading as a real, colorful photograph. `isolation: isolate` keeps the wash
+   contained to this element, not the page behind it. */
+.photo-tinted {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.photo-tinted img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.55) contrast(1.05) brightness(1.02);
+}
+
+.photo-tinted::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-ink);
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Same muted-color intent as .photo-tinted, but filter-only: press logos are often
+   transparent-background PNGs, and the ::after ink wash above would paint a faint
+   visible rectangle over that transparency. A filter avoids that entirely. */
+.logo-tinted {
+  display: block;
+  filter: saturate(0.55) contrast(1.05) brightness(1.02);
+}

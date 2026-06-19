@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import portrait from '../assets/images/about-portrait.jpg';
+
 const education = [
   'НИУ ВШЭ: психолог (социальная психология), психолог-исследователь и психолог-преподаватель',
   'Бизнес-программа ESSEC Business School, Париж',
@@ -14,15 +17,23 @@ const honors = [
 ];
 ---
 
-<section class="about" aria-labelledby="about-heading">
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="about__top">
+    <div class="about__top-text">
+      <h2 id="about-heading" class="about__heading reveal" style="--i:0">Обо мне</h2>
+
+      <p class="about__lead reveal" style="--i:1">
+        Социальный и организационный психолог, антрополог со специализацией на инновационном
+        лидерстве в IT, Обществе будущего и психологии успеха.
+      </p>
+    </div>
+
+    <figure class="about__portrait photo-tinted reveal" style="--i:1">
+      <Image src={portrait} alt="Ольга Абрамова" width={854} height={1280} loading="lazy" />
+    </figure>
+  </div>
+
   <div class="about__inner">
-    <h2 id="about-heading" class="about__heading reveal" style="--i:0">Обо мне</h2>
-
-    <p class="about__lead reveal" style="--i:1">
-      Социальный и организационный психолог, антрополог со специализацией на инновационном
-      лидерстве в IT, Обществе будущего и психологии успеха.
-    </p>
-
     <div class="about__grid">
       <div class="about__col">
         <p class="about__body reveal" style="--i:2">
@@ -54,9 +65,14 @@ const honors = [
     padding: clamp(4rem, 9vw, 7rem) 0 clamp(4.5rem, 10vw, 8rem);
   }
 
-  .about__inner {
-    max-width: 78rem;
-    margin: 0 auto;
+  .about__top {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .about__top-text {
     padding: 0 clamp(1.25rem, 6vw, 5rem);
   }
 
@@ -70,7 +86,7 @@ const honors = [
   }
 
   .about__lead {
-    margin: 0 0 clamp(2.5rem, 6vw, 4rem);
+    margin: 0;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: clamp(1.5rem, 3.6vw, 2.5rem);
@@ -78,6 +94,20 @@ const honors = [
     color: var(--color-ink);
     max-width: 42ch;
     text-wrap: pretty;
+  }
+
+  /* Full-bleed photo: sized from its own 2:3 aspect ratio so object-fit: cover
+     only ever trims a sliver, never crops a portrait shot down to a wide band. */
+  .about__portrait {
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 854 / 1280;
+  }
+
+  .about__inner {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
   }
 
   .about__grid {
@@ -165,6 +195,25 @@ const honors = [
   }
 
   @media (min-width: 880px) {
+    .about__top {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .about__top-text {
+      flex: 1 1 auto;
+      padding-right: clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about__portrait {
+      flex: 0 0 auto;
+      width: auto;
+      height: clamp(20rem, 34vw, 30rem);
+    }
+
     .about__grid {
       grid-template-columns: 1.1fr 1fr;
     }

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TopicCategory from '../components/TopicCategory.astro';
+
+const categories = [
+  {
+    title: 'Лидерство и инновации',
+    topics: [
+      'Культура инноваций в IT-компании. Новые модели в век ИИ',
+      'Лидер инноваций. Почему топ-менеджмент не равно лидерство?',
+      'Эмоциональный интеллект лидера на пути к социальному интеллекту',
+      'Зомби-лидерство: идеи, которые должны были умереть, но продолжают разрушать компании',
+      'Эффект «кулера». Что создаёт спонтанные инновации в офисе?',
+      'Когнитивная эмпатия вместо эмоционального интеллекта. Что работает лучше?',
+      'Как ИИ изменил многозадачность и почему мозг выдаёт Runtime Error',
+      'Осознанное лидерство в управлении изменениями. Что работает, а что нет?',
+      'Парадокс-мышление лидера: навык интеграции противоречий',
+      'Инновации через отдых. Как генерировать лучшие идеи в команде?',
+    ],
+  },
+  {
+    title: 'Психология удачи и успеха',
+    topics: [
+      'Психология удачи как стратегия личного прорыва в XXI веке',
+      '5 этапов удачи в бизнесе. Научный фундамент управляемого хаоса',
+      '«Инженерия случайности» как будущее R&D',
+      'Управляемая случайность. Как системно проектировать прорывные озарения',
+      'Психология удачи в любви: искусство быть готовым к встрече',
+      'Психология удачи лидера как инструмент влияния',
+      'Как серийному предпринимателю всегда быть на гребне волны?',
+      'Лидер социального влияния: мастер управления идентичностью',
+      'Мотивирующая коммуникация в 5 научно обоснованных шагах',
+      'Удача в наследство. Как сформировать свой рецепт удачи',
+    ],
+  },
+  {
+    title: 'Общество будущего',
+    topics: [
+      'Сценарии технологического общества будущего глазами IT-лидеров России',
+      'Общество 5.0. Счастье человека в суперумном городе',
+      'Эволюция близости. Дружба, любовь и одиночество среди алгоритмов',
+      'Мультиидентичность человека в Обществе 5.0',
+      'Будущее супергородов на примере Японии: через инновации к благополучию',
+      'Киберфизическое пространство для жизни человека будущего',
+      'Алгоритмический детерминизм как вызов агентности человека в Обществе будущего',
+      'От Индустрии 4.0 к Обществу 5.0. Как создаются города будущего?',
+      'Этика оцифровки жизни человека в городе будущего',
+      'Знакомьтесь, ваш цифровой двойник: новый гражданин города будущего',
+    ],
+  },
+  {
+    title: 'IT и оцифровка поведения человека',
+    topics: [
+      'Человек как сломанный алгоритм. Ошибки оцифровки поведения человека',
+      'Цифровой эмоциональный интеллект. Как читать между строк в чатах?',
+      'Обратная сторона идеального сервиса. Где кончается сервис и начинается контроль?',
+      'Архитектура цифрового выбора. Как интерфейсы незаметно принимают решения за нас?',
+      'Формула принятия решения клиента о покупке',
+      'Код предсказуемости. Почему мы кажемся себе уникальными, но действуем по шаблону?',
+      'Методологический скаффолдинг как новая модель поддержки клиентов и сотрудников',
+      'Цифровой гипноз через персонализированные манипуляции. Как избежать кибератаки?',
+      'Эволюция привязанности. Почему онлайн-сообщества не закрывают потребности человека?',
+      'Человек в онлайн-сервисе. Создаём нативный алгоритм общения с клиентом',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Темы выступлений: Абрамова Ольга"
+  description="Темы выступлений Ольги Абрамовой: лидерство и инновации, психология удачи, общество будущего, IT и оцифровка поведения человека."
+>
+  <header class="topics-header">
+    <h1 class="topics-header__heading reveal" style="--i:0">Темы выступлений</h1>
+    <p class="topics-header__lead reveal" style="--i:1">
+      Тема согласуется под формат и аудиторию. Ниже: отправная точка для разговора.
+    </p>
+  </header>
+
+  {categories.map((category, index) => <TopicCategory title={category.title} topics={category.topics} alt={index % 2 === 1} />)}
+
+  <section class="topics-cta" aria-labelledby="topics-cta-heading">
+    <div class="topics-cta__inner">
+      <h2 id="topics-cta-heading" class="topics-cta__heading reveal" style="--i:0">Тема откликается?</h2>
+      <p class="topics-cta__lead reveal" style="--i:1">
+        Напишите, какая тема и формат вам подходят: согласуем детали и дату.
+      </p>
+      <a class="topics-cta__link reveal" style="--i:2" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+        Обсудить тему
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .topics-header {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 6vw, 5rem) clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .topics-header__heading {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .topics-header__lead {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    max-width: 55ch;
+  }
+
+  .topics-cta {
+    background: var(--color-ink);
+    padding: clamp(3.5rem, 9vw, 6rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .topics-cta__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .topics-cta__heading {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    letter-spacing: -0.02em;
+    color: var(--color-bg);
+  }
+
+  .topics-cta__lead {
+    margin: 0 0 clamp(2rem, 5vw, 2.75rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    color: color-mix(in oklab, var(--color-bg) 82%, transparent);
+    max-width: 50ch;
+  }
+
+  .topics-cta__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--color-ink);
+    background: var(--color-accent);
+    padding: 1rem 1.75rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topics-cta__link span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topics-cta__link:hover,
+  .topics-cta__link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .topics-cta__link:hover span,
+  .topics-cta__link:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  .topics-cta__link:focus-visible {
+    outline: 2px solid var(--color-bg);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topics-cta__link,
+    .topics-cta__link span {
+      transition: none;
+    }
+  }
+</style>
