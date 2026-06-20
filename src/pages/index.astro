@@ -9,6 +9,7 @@ import Events from '../components/Events.astro';
 import Press from '../components/Press.astro';
 import Surveys from '../components/Surveys.astro';
 import Contact from '../components/Contact.astro';
+import SectionTransition from '../components/SectionTransition.astro';
 ---
 
 <BaseLayout
@@ -18,10 +19,16 @@ import Contact from '../components/Contact.astro';
   <Hero />
   <About />
   <Facts />
+  <SectionTransition from="var(--color-bg)" to="var(--color-ink)" />
   <Statement />
+  <SectionTransition from="var(--color-ink)" to="var(--color-bg)" />
   <Offers />
+  <SectionTransition from="var(--color-mist)" to="var(--color-bg)" />
   <Events />
+  <SectionTransition from="var(--color-bg)" to="var(--color-mist)" />
   <Press />
+  <SectionTransition from="var(--color-mist)" to="var(--color-bg)" />
   <Surveys />
+  <SectionTransition from="var(--color-bg)" to="var(--color-ink)" />
   <Contact />
 </BaseLayout>

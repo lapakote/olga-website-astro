@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTransition from '../components/SectionTransition.astro';
 
 const upgradeFeatures = ['Выход из иллюзий', 'Готовые отработанные программы', 'Стабильный результат'];
 
@@ -33,6 +34,8 @@ const businessFeatures = [
     </div>
   </section>
 
+  <SectionTransition from="var(--color-bg)" to="var(--color-mist)" />
+
   <section class="program program--alt" aria-labelledby="business-heading">
     <div class="program__inner">
       <p class="program__kicker reveal" style="--i:0">Бизнес-коучинг</p>
@@ -45,12 +48,16 @@ const businessFeatures = [
     </div>
   </section>
 
+  <SectionTransition from="var(--color-mist)" to="var(--color-bg)" />
+
   <section class="program" aria-labelledby="luck-heading">
     <div class="program__inner">
       <p class="program__kicker reveal" style="--i:0">Программа</p>
       <h2 id="luck-heading" class="program__title reveal" style="--i:1">Психология удачи</h2>
     </div>
   </section>
+
+  <SectionTransition from="var(--color-bg)" to="var(--color-mist)" />
 
   <section class="program program--alt" aria-labelledby="crisis-heading">
     <div class="program__inner">
@@ -60,6 +67,8 @@ const businessFeatures = [
       <p class="program__note reveal" style="--i:3">Выйдем из кризиса без потери времени и без ошибочных решений.</p>
     </div>
   </section>
+
+  <SectionTransition from="var(--color-mist)" to="var(--color-ink)" />
 
   <section class="coaching-cta" aria-labelledby="coaching-cta-heading">
     <div class="coaching-cta__inner">

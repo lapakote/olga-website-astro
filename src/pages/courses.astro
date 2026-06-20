@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTransition from '../components/SectionTransition.astro';
 
 const currentCourses = [
   'Лаборатория инноваций',
@@ -52,6 +53,8 @@ const reviewCapabilities = [
     </div>
   </section>
 
+  <SectionTransition from="var(--color-bg)" to="var(--color-mist)" />
+
   <section class="course-block course-block--alt" aria-labelledby="ready-heading">
     <div class="course-block__inner">
       <h2 id="ready-heading" class="course-block__title reveal" style="--i:0">Мои курсы в НИУ ВШЭ</h2>
@@ -64,6 +67,8 @@ const reviewCapabilities = [
     </div>
   </section>
 
+  <SectionTransition from="var(--color-mist)" to="var(--color-bg)" />
+
   <section class="course-block" aria-labelledby="custom-heading">
     <div class="course-block__inner">
       <h2 id="custom-heading" class="course-block__title reveal" style="--i:0">Создание курсов и программ для бизнеса</h2>
@@ -73,6 +78,8 @@ const reviewCapabilities = [
       </ul>
     </div>
   </section>
+
+  <SectionTransition from="var(--color-bg)" to="var(--color-mist)" />
 
   <section class="course-block course-block--alt" aria-labelledby="review-heading">
     <div class="course-block__inner">
@@ -85,6 +92,8 @@ const reviewCapabilities = [
       </ul>
     </div>
   </section>
+
+  <SectionTransition from="var(--color-mist)" to="var(--color-ink)" />
 
   <section class="courses-cta" aria-labelledby="courses-cta-heading">
     <div class="courses-cta__inner">

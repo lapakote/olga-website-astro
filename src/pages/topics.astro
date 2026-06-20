@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TopicCategory from '../components/TopicCategory.astro';
+import SectionTransition from '../components/SectionTransition.astro';
 
 const categories = [
   {
@@ -73,11 +74,31 @@ const categories = [
   <header class="topics-header">
     <h1 class="topics-header__heading reveal" style="--i:0">Темы выступлений</h1>
     <p class="topics-header__lead reveal" style="--i:1">
-      Тема согласуется под формат и аудиторию. Ниже: отправная точка для разговора.
+      Готовые темы для конференций, корпоративных мероприятий и образовательных программ.
+      Выберите тему, которая подходит вашей аудитории: адаптирую её под формат, доклад,
+      мастер-класс или воркшоп.
     </p>
+    <a class="topics-header__link reveal" style="--i:2" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+      Написать в Telegram
+      <span aria-hidden="true">→</span>
+    </a>
   </header>
 
-  {categories.map((category, index) => <TopicCategory title={category.title} topics={category.topics} alt={index % 2 === 1} />)}
+  {
+    categories.map((category, index) => (
+      <>
+        <TopicCategory title={category.title} topics={category.topics} alt={index % 2 === 1} />
+        {index < categories.length - 1 && (
+          <SectionTransition
+            from={index % 2 === 1 ? 'var(--color-mist)' : 'var(--color-bg)'}
+            to={index % 2 === 1 ? 'var(--color-bg)' : 'var(--color-mist)'}
+          />
+        )}
+      </>
+    ))
+  }
+
+  <SectionTransition from="var(--color-mist)" to="var(--color-ink)" />
 
   <section class="topics-cta" aria-labelledby="topics-cta-heading">
     <div class="topics-cta__inner">
@@ -110,12 +131,48 @@ const categories = [
   }
 
   .topics-header__lead {
-    margin: 0;
+    margin: 0 0 clamp(1.5rem, 4vw, 2rem);
     font-family: var(--font-display);
     font-weight: 500;
     font-size: clamp(1rem, 1.8vw, 1.125rem);
     color: color-mix(in oklab, var(--color-ink) 78%, transparent);
     max-width: 55ch;
+  }
+
+  .topics-header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--color-ink);
+    background: var(--color-accent);
+    padding: 1rem 1.75rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topics-header__link span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topics-header__link:hover,
+  .topics-header__link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .topics-header__link:hover span,
+  .topics-header__link:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topics-header__link,
+    .topics-header__link span {
+      transition: none;
+    }
   }
 
   .topics-cta {
