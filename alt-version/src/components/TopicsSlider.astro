@@ -1,0 +1,418 @@
+---
+import Annotation from './Annotation.astro';
+
+const categories = [
+  {
+    title: 'Лидерство и инновации',
+    topics: [
+      'Культура инноваций в IT-компании. Новые модели в век ИИ',
+      'Лидер инноваций. Почему топ-менеджмент не равно лидерство?',
+      'Эмоциональный интеллект лидера на пути к социальному интеллекту',
+      'Зомби-лидерство: идеи, которые должны были умереть, но продолжают разрушать компании',
+      'Эффект «кулера». Что создаёт спонтанные инновации в офисе?',
+      'Когнитивная эмпатия вместо эмоционального интеллекта. Что работает лучше?',
+      'Как ИИ изменил многозадачность и почему мозг выдаёт Runtime Error',
+      'Осознанное лидерство в управлении изменениями. Что работает, а что нет?',
+      'Парадокс-мышление лидера: навык интеграции противоречий',
+      'Инновации через отдых. Как генерировать лучшие идеи в команде?',
+    ],
+  },
+  {
+    title: 'Психология удачи и успеха',
+    topics: [
+      'Психология удачи как стратегия личного прорыва в XXI веке',
+      '5 этапов удачи в бизнесе. Научный фундамент управляемого хаоса',
+      '«Инженерия случайности» как будущее R&D',
+      'Управляемая случайность. Как системно проектировать прорывные озарения',
+      'Психология удачи в любви: искусство быть готовым к встрече',
+      'Психология удачи лидера как инструмент влияния',
+      'Как серийному предпринимателю всегда быть на гребне волны?',
+      'Лидер социального влияния: мастер управления идентичностью',
+      'Мотивирующая коммуникация в 5 научно обоснованных шагах',
+      'Удача в наследство. Как сформировать свой рецепт удачи',
+    ],
+  },
+  {
+    title: 'Общество будущего',
+    topics: [
+      'Сценарии технологического общества будущего глазами IT-лидеров России',
+      'Общество 5.0. Счастье человека в суперумном городе',
+      'Эволюция близости. Дружба, любовь и одиночество среди алгоритмов',
+      'Мультиидентичность человека в Обществе 5.0',
+      'Будущее супергородов на примере Японии: через инновации к благополучию',
+      'Киберфизическое пространство для жизни человека будущего',
+      'Алгоритмический детерминизм как вызов агентности человека в Обществе будущего',
+      'От Индустрии 4.0 к Обществу 5.0. Как создаются города будущего?',
+      'Этика оцифровки жизни человека в городе будущего',
+      'Знакомьтесь, ваш цифровой двойник: новый гражданин города будущего',
+    ],
+  },
+  {
+    title: 'IT и оцифровка поведения человека',
+    topics: [
+      'Человек как сломанный алгоритм. Ошибки оцифровки поведения человека',
+      'Цифровой эмоциональный интеллект. Как читать между строк в чатах?',
+      'Обратная сторона идеального сервиса. Где кончается сервис и начинается контроль?',
+      'Архитектура цифрового выбора. Как интерфейсы незаметно принимают решения за нас?',
+      'Формула принятия решения клиента о покупке',
+      'Код предсказуемости. Почему мы кажемся себе уникальными, но действуем по шаблону?',
+      'Методологический скаффолдинг как новая модель поддержки клиентов и сотрудников',
+      'Цифровой гипноз через персонализированные манипуляции. Как избежать кибератаки?',
+      'Эволюция привязанности. Почему онлайн-сообщества не закрывают потребности человека?',
+      'Человек в онлайн-сервисе. Создаём нативный алгоритм общения с клиентом',
+    ],
+  },
+];
+---
+
+<section class="topics" id="topics" aria-labelledby="topics-heading">
+  <div class="topics__doodle topics__doodle--top"><Annotation text="Когнитивная эмпатия" rotate={-3} /></div>
+  <div class="topics__doodle topics__doodle--bottom"><Annotation text="Общество 5.0" rotate={2} /></div>
+
+  <div class="topics__head">
+    <div class="topics__head-panel reveal" style="--i:1">
+      <span class="img-zoom topics__head-img-wrap">
+        <video class="topics__head-img topics__head-video" autoplay muted loop playsinline preload="metadata">
+          <source src="/video/topics-stage.mp4" type="video/mp4" />
+        </video>
+      </span>
+      <div class="topics__head-text">
+        <p class="topics__label reveal" style="--i:0"><span aria-hidden="true">●</span> Темы выступлений</p>
+        <h2 id="topics-heading" class="topics__heading reveal" style="--i:1">
+          <span class="topics__heading-line">40 готовых тем</span>
+          <span class="topics__heading-line topics__heading-line--accent">в 4 категориях</span>
+        </h2>
+        <p class="topics__intro reveal" style="--i:2">
+          Готовые темы для конференций, корпоративных мероприятий и образовательных программ. Выберите тему,
+          которая подходит вашей аудитории — адаптирую её под формат.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topics__grid reveal" style="--i:3">
+    {
+      categories.map((category, index) => (
+        <article class="topics__card">
+          <span class="topics__card-index">0{index + 1}</span>
+          <h3 class="topics__card-title">{category.title}</h3>
+          <ul class="topics__card-chips">
+            {category.topics.slice(0, 3).map((topic) => <li>{topic}</li>)}
+          </ul>
+          <details class="topics__more">
+            <summary>
+              Показать ещё {category.topics.length - 3}
+              <span aria-hidden="true">+</span>
+            </summary>
+            <ul class="topics__card-chips">
+              {category.topics.slice(3).map((topic) => <li>{topic}</li>)}
+            </ul>
+          </details>
+        </article>
+      ))
+    }
+  </div>
+
+  <a class="topics__link" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+    Обсудить тему для вашего события
+    <span aria-hidden="true">→</span>
+  </a>
+</section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('.topics__head-video');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function syncMotionPreference() {
+    if (!video) return;
+    if (prefersReducedMotion.matches) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    } else {
+      video.play().catch(() => {});
+    }
+  }
+
+  syncMotionPreference();
+  prefersReducedMotion.addEventListener('change', syncMotionPreference);
+
+  if (video && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (prefersReducedMotion.matches) continue;
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(video);
+  }
+</script>
+
+<style>
+  .topics {
+    position: relative;
+    background: var(--bg-base);
+    padding: clamp(5rem, 12vw, 9rem) 0 clamp(4rem, 9vw, 6rem);
+    overflow: hidden;
+  }
+
+  .topics__doodle {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .topics__doodle--top {
+    top: 6%;
+    right: 4%;
+  }
+
+  .topics__doodle--bottom {
+    bottom: 16%;
+    right: 8%;
+  }
+
+  @media (min-width: 1024px) {
+    .topics__doodle {
+      display: block;
+    }
+  }
+
+  /* One shared panel for text + video, not two separate floating objects —
+     the video bleeds flush to the panel's own edge/corners (no border or
+     shadow of its own) so it reads as part of the block, not a sticker
+     dropped next to it. */
+  .topics__head {
+    max-width: 84rem;
+    margin: 0 auto clamp(3rem, 7vw, 4rem);
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+    display: flex;
+  }
+
+  .topics__head-panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .topics__head-text {
+    padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .topics__head-img-wrap {
+    display: block;
+  }
+
+  .topics__head-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center 90%;
+  }
+
+  .topics__label {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .topics__label span {
+    color: var(--accent-deep);
+    font-size: 0.6rem;
+  }
+
+  .topics__heading {
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 6.5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .topics__heading-line--accent {
+    color: var(--accent-deep);
+  }
+
+  .topics__intro {
+    margin: 0;
+    max-width: 55ch;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .topics__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 84rem;
+    margin: 0 auto clamp(2.5rem, 6vw, 3.5rem);
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .topics__card {
+    position: relative;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .topics__card-index {
+    position: absolute;
+    top: -0.5rem;
+    right: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 8vw, 5rem);
+    line-height: 1;
+    color: var(--bg-alt);
+    z-index: 0;
+  }
+
+  .topics__card-title {
+    position: relative;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--ink);
+    z-index: 1;
+  }
+
+  .topics__card-chips {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    z-index: 1;
+  }
+
+  .topics__card-chips li {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    background: var(--bg-alt);
+    border-radius: 999px;
+    padding: 0.4rem 0.875rem;
+  }
+
+  .topics__more {
+    position: relative;
+    z-index: 1;
+  }
+
+  .topics__more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--accent-deep);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .topics__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .topics__more .topics__card-chips {
+    margin-top: 0.75rem;
+  }
+
+  .topics__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 0 clamp(1.25rem, 6vw, 5rem);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    background: var(--accent);
+    padding: 0.875rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topics__link span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .topics__link:hover,
+  .topics__link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .topics__link:hover span,
+  .topics__link:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topics__link,
+    .topics__link span {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .topics__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 880px) {
+    .topics__head-panel {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .topics__head-img-wrap {
+      flex: 0 0 clamp(18rem, 32vw, 26rem);
+    }
+
+    .topics__head-img {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .topics__head-text {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+</style>

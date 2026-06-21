@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import AudienceHub from '../components/AudienceHub.astro';
+import Footer from '../components/Footer.astro';
+import portrait from '../assets/images/business-portrait.jpg';
+
+const items = [
+  {
+    title: 'Спикерство',
+    description: 'Выступления для конференций и команд: данные, кейсы лидеров, темы, которые двигают.',
+    href: '/#offers',
+  },
+  {
+    title: 'Курсы для бизнеса',
+    description: 'Готовые курсы под задачу или пересборка того, что у вас уже есть.',
+    href: '/#offers',
+  },
+  {
+    title: 'Консалтинг и научный эдвайзинг',
+    description: 'Стратегические сессии, исследования перед решениями, научное сопровождение лидерства.',
+    href: '/#offers',
+  },
+  {
+    title: 'Мероприятия',
+    description: 'Где и когда Ольгу можно пригласить выступить.',
+    href: '/#events',
+  },
+];
+---
+
+<BaseLayout
+  title="Бизнесу: Абрамова Ольга"
+  description="Решения для бизнеса: спикерство, курсы, консалтинг и научный эдвайзинг от Ольги Абрамовой."
+>
+  <Header />
+  <AudienceHub
+    heading="Бизнесу"
+    lead="Наука как конкурентное преимущество компании: выступления, курсы, консалтинг и эдвайзинг."
+    items={items}
+    portrait={portrait}
+    portraitWidth={640}
+    portraitHeight={960}
+  />
+  <Footer />
+</BaseLayout>

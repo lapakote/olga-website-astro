@@ -1,0 +1,61 @@
+---
+// Margin annotations carrying real meaning — short real terms from Olga's
+// own vocabulary (specializations, credentials, topic titles), styled like
+// a handwritten note with a marker underline. Not decoration for its own
+// sake: every word here is something she actually says about her work.
+interface Props {
+  text: string;
+  rotate?: number;
+  class?: string;
+  color?: string;
+}
+
+const { text, rotate = -2, class: className = '', color = 'var(--accent-deep)' } = Astro.props;
+---
+
+<div class={`annotation ${className}`} style={`--rotate: ${rotate}deg; color: ${color}`}>
+  <span class="annotation__text">{text}</span>
+  <svg class="annotation__underline" viewBox="0 0 120 14" fill="none" stroke={color} aria-hidden="true" focusable="false">
+    <path d="M3 9 C 30 2, 60 12, 90 5 C 100 3, 110 6, 117 8" stroke-width="2.5" stroke-linecap="round" />
+  </svg>
+</div>
+
+<style>
+  .annotation {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transform: rotate(var(--rotate));
+    pointer-events: none;
+    animation: annotation-drift 6s ease-in-out infinite;
+  }
+
+  .annotation__text {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+
+  .annotation__underline {
+    width: 100%;
+    height: 0.5rem;
+  }
+
+  @keyframes annotation-drift {
+    0%,
+    100% {
+      transform: rotate(var(--rotate)) translateY(0);
+    }
+    50% {
+      transform: rotate(var(--rotate)) translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .annotation {
+      animation: none;
+    }
+  }
+</style>

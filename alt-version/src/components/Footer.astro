@@ -1,0 +1,265 @@
+---
+import Annotation from './Annotation.astro';
+
+interface Channel {
+  label: string;
+  href?: string;
+}
+
+const channels: Channel[] = [
+  { label: 'YouTube' },
+  { label: 'VK' },
+  { label: 'Tenchat' },
+  { label: 'IQ Медиа', href: 'https://iq-media.ru/authors/276' },
+  { label: 'Сайт НИУ ВШЭ' },
+];
+
+const navLinks = [
+  { href: '/#why', label: 'Почему так' },
+  { href: '/#offers', label: 'Направления' },
+  { href: '/#topics', label: 'Темы' },
+  { href: '/#events', label: 'Мероприятия' },
+  { href: '/#faq', label: 'Вопросы' },
+];
+---
+
+<footer class="footer" id="contact" aria-labelledby="footer-heading">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__col">
+        <h2 id="footer-heading" class="footer__heading reveal" style="--i:0">Действуйте!</h2>
+        <p class="footer__lead reveal" style="--i:1">Напишите прямо сейчас.</p>
+        <a class="footer__primary reveal" style="--i:2" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+          Написать в Telegram
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <nav class="footer__nav reveal" style="--i:3" aria-label="Навигация по разделам">
+        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+
+      <ul class="footer__channels reveal" style="--i:3">
+        {
+          channels.map((channel) =>
+            channel.href ? (
+              <li>
+                <a class="footer__channel-link" href={channel.href} target="_blank" rel="noopener noreferrer">
+                  {channel.label}
+                </a>
+              </li>
+            ) : (
+              <li class="footer__channel">{channel.label}</li>
+            )
+          )
+        }
+      </ul>
+    </div>
+
+    <div class="footer__wordmark-row">
+      <p class="footer__wordmark" aria-hidden="true">АБРАМОВА</p>
+      <div class="footer__doodle footer__doodle--top">
+        <Annotation text="PhD · НИУ ВШЭ" rotate={-3} color="var(--accent)" />
+      </div>
+      <div class="footer__doodle footer__doodle--bottom">
+        <Annotation text="Психология удачи" rotate={2} color="var(--accent)" />
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 Абрамова Ольга</span>
+      <span>Социальный психолог и антрополог НИУ ВШЭ</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--on-dark);
+    padding: clamp(4rem, 9vw, 6.5rem) clamp(1.25rem, 6vw, 5rem) clamp(2rem, 5vw, 2.5rem);
+    overflow: hidden;
+  }
+
+  .footer__inner {
+    max-width: 84rem;
+    margin: 0 auto;
+  }
+
+  .footer__top {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 6vw, 3.5rem);
+    margin-bottom: clamp(3rem, 8vw, 5rem);
+  }
+
+  .footer__heading {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    letter-spacing: -0.02em;
+    color: var(--on-dark);
+  }
+
+  .footer__lead {
+    margin: 0 0 1.5rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--on-dark-soft);
+  }
+
+  .footer__primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    background: var(--accent);
+    padding: 0.875rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .footer__primary span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .footer__primary:hover,
+  .footer__primary:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .footer__primary:hover span,
+  .footer__primary:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .footer__nav a {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--on-dark-soft);
+    text-decoration: none;
+    transition: color 220ms var(--ease-out-quart);
+  }
+
+  .footer__nav a:hover,
+  .footer__nav a:focus-visible {
+    color: var(--accent);
+  }
+
+  .footer__channels {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  .footer__channel,
+  .footer__channel-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  .footer__channel {
+    color: var(--on-dark-soft);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.2);
+  }
+
+  .footer__channel-link {
+    color: var(--on-dark);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    transition: color 220ms var(--ease-out-quart), box-shadow 220ms var(--ease-out-quart);
+  }
+
+  .footer__channel-link:hover,
+  .footer__channel-link:focus-visible {
+    color: var(--accent);
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+
+  .footer__wordmark-row {
+    position: relative;
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+  }
+
+  .footer__wordmark {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 16vw, 11rem);
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: rgba(255, 255, 255, 0.08);
+    white-space: nowrap;
+  }
+
+  .footer__doodle {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .footer__doodle--top {
+    top: 8%;
+    right: 6%;
+  }
+
+  .footer__doodle--bottom {
+    bottom: 4%;
+    right: 18%;
+  }
+
+  @media (min-width: 880px) {
+    .footer__doodle {
+      display: block;
+    }
+  }
+
+  .footer__bottom {
+    padding-top: clamp(1.5rem, 4vw, 2rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: var(--on-dark-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer__primary,
+    .footer__primary span,
+    .footer__nav a,
+    .footer__channel-link {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 880px) {
+    .footer__top {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

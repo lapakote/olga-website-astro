@@ -1,0 +1,164 @@
+---
+import Annotation from './Annotation.astro';
+
+const faqs = [
+  {
+    q: 'Как забронировать выступление?',
+    a: 'Напишите мне в Telegram с темой, датой и форматом мероприятия — отвечу с вариантами, и мы согласуем детали.',
+  },
+  {
+    q: 'Можно адаптировать тему под аудиторию?',
+    a: 'Да, я адаптирую любую из готовых тем под формат — доклад, мастер-класс или воркшоп — и под профиль вашей аудитории.',
+  },
+  {
+    q: 'В каких городах и форматах вы выступаете?',
+    a: 'Очно по России (например, Москва, Тюмень) и в цифровом формате — формат я подбираю под конкретное мероприятие.',
+  },
+  {
+    q: 'Чем ваш консалтинг отличается от коучинга?',
+    a: 'В консалтинге я провожу стратегические сессии и научное сопровождение для компаний. В коучинге — личное сопровождение и психология удачи для частных клиентов.',
+  },
+];
+---
+
+<section class="faq" id="faq" aria-labelledby="faq-heading">
+  <div class="faq__doodle faq__doodle--top"><Annotation text="Москва · Тюмень · онлайн" rotate={-3} /></div>
+  <div class="faq__doodle faq__doodle--bottom"><Annotation text="8–10 сессий" rotate={2} color="var(--accent-deep)" /></div>
+
+  <div class="faq__inner">
+    <p class="faq__label reveal" style="--i:0"><span aria-hidden="true">●</span> Вопросы</p>
+    <h2 id="faq-heading" class="faq__heading reveal" style="--i:1">Частые вопросы</h2>
+
+    <div class="faq__list reveal" style="--i:2">
+      {
+        faqs.map((item) => (
+          <details class="faq__item">
+            <summary class="faq__question">
+              {item.q}
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq__answer">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    position: relative;
+    background: var(--bg-base);
+    padding: clamp(5rem, 12vw, 9rem) 0;
+    overflow: hidden;
+  }
+
+  .faq__doodle {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .faq__doodle--top {
+    top: 10%;
+    right: 6%;
+  }
+
+  .faq__doodle--bottom {
+    bottom: 14%;
+    right: 10%;
+  }
+
+  .faq__inner {
+    position: relative;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .faq__label {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .faq__label span {
+    color: var(--accent-deep);
+    font-size: 0.6rem;
+  }
+
+  .faq__heading {
+    margin: 0 0 clamp(2.5rem, 6vw, 3.5rem);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 6.5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--border);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 1.5rem) 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__icon {
+    flex: 0 0 auto;
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    color: var(--accent-deep);
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .faq__item[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    margin: 0 0 clamp(1.25rem, 3vw, 1.5rem);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__icon {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .faq__doodle {
+      display: block;
+    }
+  }
+</style>

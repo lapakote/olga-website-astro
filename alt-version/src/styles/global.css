@@ -1,0 +1,113 @@
+:root {
+  /* Light, sunlit palette — replaces the original dark navy/orange scheme.
+     Accent is a warm sun-yellow instead of orange; a deeper amber carries
+     the accent role wherever it sits as TEXT on the light background (a
+     bright yellow fails contrast as text, so text uses the deep variant;
+     fills/buttons use the bright one with dark ink text on top). */
+  --bg-base: #f6f4ee;
+  --bg-surface: #ffffff;
+  --bg-alt: #eaf1f0;
+  --ink: #1b1b16;
+  --ink-soft: rgba(27, 27, 22, 0.66);
+  --ink-faint: rgba(27, 27, 22, 0.45);
+  --border: rgba(27, 27, 22, 0.12);
+
+  /* Muted gold rather than a bright cartoon yellow — reads as expert/editorial,
+     not playful or "детская неожиданность". */
+  --accent: #d9a23e;
+  --accent-deep: #b266e9;
+  --sky-1: rgb(70, 170, 255);
+  --sky-2: rgb(40, 90, 200);
+
+  /* Used only inside the deliberate dark contrast blocks (banners), never as
+     the page background — the rest of this site is light. */
+  --on-dark: #ffffff;
+  --on-dark-soft: rgba(255, 255, 255, 0.7);
+
+  --font-display: 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --z-base: 0;
+  --z-scrim: 10;
+  --z-content: 20;
+  --z-header: 50;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 700ms var(--ease-out-quart), transform 700ms var(--ease-out-quart);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Sitewide photo hover treatment: wrap an <img> in an element with this class
+   and overflow:hidden — the photo scales up slightly on hover/focus. Used so
+   every photo grid on the site has the same "alive" feel instead of static
+   tiles. */
+.img-zoom {
+  display: block;
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 450ms var(--ease-out-quart);
+}
+
+.img-zoom:hover img,
+.img-zoom:focus-visible img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-zoom img {
+    transition: none;
+  }
+
+  .img-zoom:hover img,
+  .img-zoom:focus-visible img {
+    transform: none;
+  }
+}

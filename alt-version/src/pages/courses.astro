@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const currentCourses = [
+  'Лаборатория инноваций',
+  'Деловые коммуникации',
+  'Психология удачи',
+  'Управление конфликтами и мотивирующая коммуникация',
+  'Психология управления командами разработчиков',
+  'Prospere: осознанное лидерство в твоей жизни',
+  'Социальное влияние',
+];
+
+const customDirections = ['Лидер инноваций', 'Технологии современного мира', 'Умение быть счастливым', 'Лидер осознанного влияния'];
+
+const reviewCapabilities = [
+  'Апгрейд готовых курсов до мировых трендов',
+  'Анализ контента курсов на научную составляющую',
+  'Удержание мотивации на обучающих платформах',
+];
+---
+
+<BaseLayout
+  title="Курсы: Абрамова Ольга"
+  description="Курсы Ольги Абрамовой: готовые программы в НИУ ВШЭ, разработка курсов под бизнес, рецензия и пересборка существующих программ."
+>
+  <Header />
+
+  <header class="page-header">
+    <p class="page-header__label reveal" style="--i:0"><span aria-hidden="true">●</span> Направления</p>
+    <h1 class="page-header__heading reveal" style="--i:1">Курсы</h1>
+    <p class="page-header__lead reveal" style="--i:2">
+      Около 20 курсов на стыке психологии, антропологии, IT и бизнеса: готовые программы, разработка под задачу и
+      рецензия того, что у вас уже есть.
+    </p>
+  </header>
+
+  <section class="block" aria-labelledby="current-heading">
+    <div class="block__inner">
+      <h2 id="current-heading" class="block__title reveal" style="--i:0">Курсы сейчас</h2>
+      <ul class="block__list reveal" style="--i:1">
+        {currentCourses.map((course) => <li>{course}</li>)}
+      </ul>
+      <p class="block__note reveal" style="--i:2">И ещё около 20 курсов в разработке и проведении.</p>
+    </div>
+  </section>
+
+  <section class="block block--alt" aria-labelledby="custom-heading">
+    <div class="block__inner">
+      <h2 id="custom-heading" class="block__title reveal" style="--i:0">Создание курсов и программ для бизнеса</h2>
+      <p class="block__lead reveal" style="--i:1">Создадим уникальный научно-обоснованный курс для вас.</p>
+      <ul class="block__tags reveal" style="--i:2">
+        {customDirections.map((direction) => <li>{direction}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="review-heading">
+    <div class="block__inner">
+      <h2 id="review-heading" class="block__title reveal" style="--i:0">Рецензия курсов и программ</h2>
+      <p class="block__lead reveal" style="--i:1">Научный подход и современные тренды в каждом обучающем продукте вашей компании.</p>
+      <ul class="block__list reveal" style="--i:2">
+        {reviewCapabilities.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="page-cta__inner">
+      <h2 class="page-cta__heading reveal" style="--i:0">Нужен курс под вашу задачу?</h2>
+      <p class="page-cta__lead reveal" style="--i:1">Напишите, что хотите обучить или пересобрать, обсудим формат.</p>
+      <a class="page-cta__link reveal" style="--i:2" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+        Обсудить курс
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: clamp(7rem, 14vw, 10rem) clamp(1.25rem, 6vw, 5rem) clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .page-header__label {
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .page-header__label span {
+    color: var(--accent-deep);
+    font-size: 0.6rem;
+  }
+
+  .page-header__heading {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .page-header__lead {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    color: var(--ink-soft);
+    max-width: 55ch;
+  }
+
+  .block {
+    background: var(--bg-base);
+    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .block--alt {
+    background: var(--bg-alt);
+  }
+
+  .block__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .block__title {
+    margin: 0 0 clamp(1rem, 3vw, 1.5rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .block__lead {
+    margin: 0 0 clamp(1.5rem, 4vw, 2rem);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--ink);
+    max-width: 50ch;
+  }
+
+  .block__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .block__list li {
+    padding: clamp(1rem, 2.5vw, 1.25rem) 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    line-height: 1.3;
+    color: var(--ink);
+    max-width: 50ch;
+  }
+
+  .block__note {
+    margin: clamp(1rem, 3vw, 1.5rem) 0 0;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.9375rem;
+    color: var(--ink-faint);
+  }
+
+  .block__tags {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .block__tags li {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+  }
+
+  .page-cta {
+    background: var(--ink);
+    padding: clamp(3.5rem, 9vw, 6rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .page-cta__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .page-cta__heading {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.02em;
+    color: var(--on-dark);
+  }
+
+  .page-cta__lead {
+    margin: 0 0 clamp(2rem, 5vw, 2.75rem);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    color: var(--on-dark-soft);
+    max-width: 50ch;
+  }
+
+  .page-cta__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    background: var(--accent);
+    padding: 0.875rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .page-cta__link span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .page-cta__link:hover,
+  .page-cta__link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .page-cta__link:hover span,
+  .page-cta__link:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-cta__link,
+    .page-cta__link span {
+      transition: none;
+    }
+  }
+</style>

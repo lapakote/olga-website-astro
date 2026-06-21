@@ -1,0 +1,271 @@
+---
+import { Image } from 'astro:assets';
+import speaking from '../assets/images/offer-speaking.jpg';
+import courses from '../assets/images/offer-courses.jpg';
+import consulting from '../assets/images/offer-consulting.jpg';
+import coaching from '../assets/images/offer-coaching.jpg';
+
+const directions = [
+  {
+    title: 'Спикерство',
+    description:
+      'Последние данные из мира науки и кейсы лидеров вместо общих рассуждений со сцены. Топ-темы в харизматичном научпопе.',
+    image: speaking,
+    video: '/video/speaking-stage.mp4',
+    width: 1280,
+    height: 852,
+    href: '/#topics',
+  },
+  {
+    title: 'Курсы',
+    description:
+      'Превращаю обучающие программы в научно обоснованные продукты: от рецензии готового курса до разработки нового.',
+    image: courses,
+    width: 1242,
+    height: 828,
+    href: '/courses',
+  },
+  {
+    title: 'Консалтинг',
+    description:
+      'Лучшее решение для сложных бизнес-ситуаций строится на данных, а не на интуиции. Стратегические сессии и исследования.',
+    image: consulting,
+    width: 1078,
+    height: 976,
+    imagePosition: 'center 0%',
+    href: '/business',
+  },
+  {
+    title: 'Коучинг',
+    description:
+      'Метод научного скаффолдинга соединяет обучение, консультирование и практики осознанности. Апгрейд жизни за 8–10 сессий.',
+    image: coaching,
+    width: 1280,
+    height: 960,
+    href: '/coaching',
+  },
+];
+---
+
+<section class="directions" id="offers" aria-labelledby="directions-heading">
+  <div class="directions__inner">
+    <p class="directions__label reveal" style="--i:0"><span aria-hidden="true">●</span> О событии</p>
+
+    <h2 id="directions-heading" class="directions__heading reveal" style="--i:1">
+      <span>Направления</span>
+      <span class="directions__heading-accent">работы</span>
+    </h2>
+
+    <div class="directions__grid">
+      {
+        directions.map((direction, index) => (
+          <a class="directions__card reveal" style={`--i:${2 + index}`} href={direction.href}>
+            <span class="img-zoom directions__card-thumb">
+              {direction.video ? (
+                <video class="directions__card-img directions__card-video" autoplay muted loop playsinline preload="metadata">
+                  <source src={direction.video} type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  src={direction.image}
+                  alt={direction.title}
+                  width={direction.width}
+                  height={direction.height}
+                  loading="lazy"
+                  class="directions__card-img"
+                  style={direction.imagePosition ? `object-position: ${direction.imagePosition};` : undefined}
+                />
+              )}
+            </span>
+            <div class="directions__card-body">
+              <h3 class="directions__card-title">{direction.title}</h3>
+              <p class="directions__card-text">{direction.description}</p>
+              <span class="directions__card-link">
+                <span class="directions__card-dot" aria-hidden="true"></span>
+                Подробнее
+                <span class="directions__card-arrow" aria-hidden="true">→</span>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('.directions__card-video');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function syncMotionPreference() {
+    if (!video) return;
+    if (prefersReducedMotion.matches) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    } else {
+      video.play().catch(() => {});
+    }
+  }
+
+  syncMotionPreference();
+  prefersReducedMotion.addEventListener('change', syncMotionPreference);
+
+  if (video && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (prefersReducedMotion.matches) continue;
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(video);
+  }
+</script>
+
+<style>
+  .directions {
+    background: var(--bg-alt);
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
+  }
+
+  .directions__inner {
+    max-width: 84rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .directions__label {
+    margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .directions__heading {
+    margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .directions__heading-accent {
+    color: var(--accent-deep);
+  }
+
+  .directions__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .directions__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 220ms var(--ease-out-quart), transform 220ms var(--ease-out-quart);
+  }
+
+  .directions__card:hover,
+  .directions__card:focus-visible {
+    border-color: var(--accent-deep);
+    transform: translateY(-3px);
+  }
+
+  .directions__card-thumb {
+    display: block;
+  }
+
+  .directions__card-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .directions__card-body {
+    padding: 0.875rem 1rem 1rem;
+  }
+
+  .directions__card-title {
+    margin: 0 0 0.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.0625rem;
+    color: var(--ink);
+  }
+
+  .directions__card-text {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+  }
+
+  .directions__card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--accent-deep);
+  }
+
+  .directions__card-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .directions__card-arrow {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .directions__card:hover .directions__card-arrow,
+  .directions__card:focus-visible .directions__card-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .directions__card,
+    .directions__card-arrow {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .directions__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .directions__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

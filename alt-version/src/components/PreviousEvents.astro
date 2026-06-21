@@ -1,0 +1,358 @@
+---
+import { Image } from 'astro:assets';
+import mero1 from '../assets/images/atmosphere/mero-1.jpg';
+import mero2 from '../assets/images/atmosphere/mero-2.jpg';
+import mero3 from '../assets/images/atmosphere/mero-3.jpg';
+import mero4 from '../assets/images/atmosphere/mero-4.jpg';
+
+interface EventItem {
+  name: string;
+  description: string;
+  image: ImageMetadata;
+  width: number;
+  height: number;
+  size: 'feature' | 'compact';
+}
+
+const events: EventItem[] = [
+  {
+    name: 'REFORUM',
+    description: '13 ноября 2026 · Хэдлайнер: «Психология удачи как лучшая стратегия прорыва»',
+    image: mero1,
+    width: 1200,
+    height: 800,
+    size: 'feature',
+  },
+  {
+    name: 'Симпозиум будущего',
+    description: 'Ноябрь 2026 · Москва, Нац. центр «Россия»',
+    image: mero2,
+    width: 1200,
+    height: 800,
+    size: 'feature',
+  },
+  {
+    name: 'Фитнес Форум',
+    description: '1 октября 2026 · Москва, цифровое пространство',
+    image: mero3,
+    width: 1200,
+    height: 800,
+    size: 'compact',
+  },
+  {
+    name: 'Конференция «Метрополисы»',
+    description: '2–3 октября 2026 · Тюмень',
+    image: mero4,
+    width: 1200,
+    height: 800,
+    size: 'compact',
+  },
+];
+
+// Real, distinct from the figures already used in the hero stat row.
+const stats: Array<[string, string]> = [
+  ['10', 'лет в топ-менеджменте'],
+  ['10', 'лет в академических исследованиях'],
+  [String(events.length), 'мероприятия в графике'],
+];
+---
+
+<section class="prev" id="events" aria-labelledby="prev-heading">
+  <div class="prev__inner">
+    <p class="prev__label reveal" style="--i:0"><span aria-hidden="true">●</span> Мероприятия</p>
+    <h2 id="prev-heading" class="prev__heading reveal" style="--i:1">Где послушать</h2>
+
+    <div class="prev__grid reveal" style="--i:2">
+      {
+        events.map((event, index) => (
+          <article class={`prev__card prev__card--${event.size}`} style={`--i:${index}`}>
+            <div class="prev__card-body">
+              <span class="prev__card-tag">Абрамова Ольга</span>
+              <h3 class="prev__card-title">{event.name}</h3>
+              <p class="prev__card-text">{event.description}</p>
+              <a class="prev__card-btn" href="https://t.me/OlgaAbr" target="_blank" rel="noopener noreferrer">
+                <span class="prev__card-dot" aria-hidden="true"></span>
+                Записаться
+              </a>
+            </div>
+            <span class="img-zoom prev__card-img-wrap">
+              <Image src={event.image} alt={event.name} width={event.width} height={event.height} loading="lazy" class="prev__card-img" />
+            </span>
+          </article>
+        ))
+      }
+    </div>
+
+    <dl class="prev__stats reveal" style="--i:3">
+      {
+        stats.map(([value, label]) => (
+          <div class="prev__stat">
+            <dt>{value}</dt>
+            <dd>{label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <figure class="prev__quote reveal" style="--i:4">
+      <span class="prev__quote-mark" aria-hidden="true">«</span>
+      <blockquote>Наука: лучшая база для бизнеса в XXI веке.</blockquote>
+      <figcaption>Ольга Абрамова</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .prev {
+    background: var(--ink);
+    padding: clamp(5rem, 12vw, 9rem) 0;
+  }
+
+  .prev__inner {
+    max-width: 84rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .prev__label {
+    margin: 0 0 clamp(2rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--on-dark);
+  }
+
+  .prev__label span {
+    color: var(--accent);
+    font-size: 0.6rem;
+  }
+
+  .prev__heading {
+    margin: 0 0 clamp(2.5rem, 6vw, 3.5rem);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 6.5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--on-dark);
+  }
+
+  .prev__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: clamp(3rem, 7vw, 4.5rem);
+  }
+
+  .prev__card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prev__card-body {
+    position: relative;
+    z-index: 1;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .prev__card-tag {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--on-dark-soft);
+  }
+
+  .prev__card-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--on-dark);
+  }
+
+  .prev__card-text {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--on-dark-soft);
+    max-width: 32ch;
+  }
+
+  .prev__card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    height: 2.5rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .prev__card-btn:hover,
+  .prev__card-btn:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .prev__card-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  .prev__card-img-wrap {
+    display: block;
+  }
+
+  .prev__card--feature .prev__card-title {
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+  }
+
+  .prev__card--compact .prev__card-title {
+    font-size: 1.125rem;
+  }
+
+  .prev__card--compact .prev__card-text {
+    max-width: 22ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prev__card-btn {
+      transition: none;
+    }
+  }
+
+  .prev__stats {
+    margin: 0 0 clamp(3rem, 7vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1.5rem;
+    max-width: 40rem;
+  }
+
+  .prev__stat dt {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    color: var(--on-dark);
+  }
+
+  .prev__stat dd {
+    margin: 0.25rem 0 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--on-dark-soft);
+  }
+
+  .prev__quote {
+    margin: 0;
+    max-width: 40rem;
+  }
+
+  .prev__quote-mark {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .prev__quote blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 3.2vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+  }
+
+  .prev__quote figcaption {
+    margin-top: 1rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--on-dark-soft);
+  }
+
+  @media (min-width: 640px) {
+    .prev__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Feature cards: photo bleeds along the right side, text block on the
+       left — matches the reference's "headline + photo half" card. */
+    .prev__card--feature {
+      grid-column: span 1;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 22rem;
+    }
+
+    .prev__card--feature .prev__card-body {
+      flex: 1 1 50%;
+      justify-content: center;
+    }
+
+    .prev__card--feature .prev__card-img-wrap {
+      flex: 1 1 50%;
+    }
+
+    .prev__card--feature .prev__card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Compact cards: small square photo on the right, text on the left. */
+    .prev__card--compact {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .prev__card--compact .prev__card-body {
+      flex: 1 1 60%;
+    }
+
+    .prev__card--compact .prev__card-img-wrap {
+      flex: 0 0 40%;
+    }
+
+    .prev__card--compact .prev__card-img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .prev__card-img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+  }
+</style>

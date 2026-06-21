@@ -1,0 +1,259 @@
+---
+import { Image } from 'astro:assets';
+import tass from '../assets/images/logos/tass.png';
+import rbc from '../assets/images/logos/rbc.png';
+import forbesWoman from '../assets/images/logos/forbes-woman.png';
+import sobaka from '../assets/images/logos/sobaka.jpg';
+
+const articles = [
+  'Социально-психологический портрет IT-предпринимателя России',
+  'Методологический скаффолдинг в коучинге',
+  'Общество 5.0',
+];
+
+const mentions: Array<{ name: string; logo: ImageMetadata; width: number; height: number }> = [
+  { name: 'ТАСС', logo: tass, width: 500, height: 500 },
+  { name: 'РБК Тренды', logo: rbc, width: 1000, height: 272 },
+  { name: 'Forbes Women', logo: forbesWoman, width: 560, height: 216 },
+  { name: 'Собака.ru', logo: sobaka, width: 908, height: 623 },
+];
+---
+
+<section class="partners" id="press" aria-labelledby="partners-heading">
+  <div class="partners__inner">
+    <div class="partners__col">
+      <h2 id="partners-heading" class="partners__heading reveal" style="--i:1">Авторский блог</h2>
+      <p class="partners__intro reveal" style="--i:2">Авторский блог на IQ Медиа ВШЭ.</p>
+
+      <ul class="partners__articles reveal" style="--i:3">
+        {
+          articles.map((article) => (
+            <li>
+              <a class="partners__article-link" href="https://iq-media.ru/authors/276" target="_blank" rel="noopener noreferrer">
+                <span class="partners__article-tag">IQ Медиа</span>
+                <span class="partners__article-title">{article}</span>
+                <span class="partners__article-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a class="partners__link" href="https://iq-media.ru/authors/276" target="_blank" rel="noopener noreferrer">
+        Смотреть все статьи
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="partners__col">
+      <h3 class="partners__subheading reveal" style="--i:2">Экспертные комментарии в СМИ</h3>
+      <ul class="partners__grid reveal" style="--i:3">
+        {
+          mentions.map((mention) => (
+            <li class="partners__item">
+              <Image
+                src={mention.logo}
+                alt={mention.name}
+                width={mention.width}
+                height={mention.height}
+                loading="lazy"
+                class="partners__logo"
+                style={`aspect-ratio: ${mention.width} / ${mention.height}`}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners {
+    background: var(--bg-base);
+    padding: clamp(5rem, 11vw, 8rem) clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .partners__inner {
+    max-width: 78rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 7vw, 4.5rem);
+  }
+
+  .partners__col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .partners__label {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .partners__label span {
+    color: var(--accent-deep);
+    font-size: 0.6rem;
+  }
+
+  .partners__heading,
+  .partners__subheading {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .partners__heading {
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+  }
+
+  .partners__subheading {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+  }
+
+  .partners__intro {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .partners__articles {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .partners__articles li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .partners__article-link {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    padding: clamp(0.875rem, 2vw, 1.125rem) 0;
+    text-decoration: none;
+    color: inherit;
+    transition: gap 220ms var(--ease-out-quart);
+  }
+
+  .partners__article-link:hover,
+  .partners__article-link:focus-visible {
+    gap: 0.875rem;
+  }
+
+  .partners__article-tag {
+    flex: 0 0 auto;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--accent-deep);
+  }
+
+  .partners__article-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 40ch;
+  }
+
+  .partners__article-arrow {
+    margin-left: auto;
+    color: var(--ink-faint);
+    transition: transform 220ms var(--ease-out-quart), color 220ms var(--ease-out-quart);
+  }
+
+  .partners__article-link:hover .partners__article-arrow,
+  .partners__article-link:focus-visible .partners__article-arrow {
+    color: var(--accent-deep);
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partners__article-link,
+    .partners__article-arrow {
+      transition: none;
+    }
+  }
+
+  .partners__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: var(--accent);
+    padding: 0.75rem 1.375rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .partners__link span {
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .partners__link:hover,
+  .partners__link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .partners__link:hover span,
+  .partners__link:focus-visible span {
+    transform: translateX(3px);
+  }
+
+  .partners__grid {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .partners__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .partners__logo {
+    height: clamp(3rem, 6vw, 4.5rem);
+    width: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partners__link,
+    .partners__link span {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 880px) {
+    .partners__inner {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+</style>

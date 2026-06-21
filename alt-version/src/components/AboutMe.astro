@@ -1,0 +1,303 @@
+---
+import Annotation from './Annotation.astro';
+
+const education = [
+  'НИУ ВШЭ: психолог (социальная психология), психолог-исследователь и психолог-преподаватель',
+  'Бизнес-программа ESSEC Business School, Париж',
+  'Французский колледж МГУ (CUF), социология',
+  'Институт этнологии и антропологии РАН, антропология',
+];
+
+const honors = [
+  'Лучший преподаватель НИУ ВШЭ (2018, 2021, 2023, 2025)',
+  'Победитель Фонда образовательных инноваций НИУ ВШЭ (2024)',
+  'Победитель конкурса научных работ НИУ ВШЭ, Научпоп (2025)',
+  'Выбор курсов в топ студентами НИУ ВШЭ, 2018–2026',
+];
+---
+
+<section class="about" id="about" aria-labelledby="about-heading">
+  <video class="about__video" autoplay muted playsinline preload="metadata">
+    <source src="/video/about-bg.mp4" type="video/mp4" />
+  </video>
+  <div class="about__scrim" aria-hidden="true"></div>
+
+  <div class="about__doodle about__doodle--top"><Annotation text="ESSEC · Париж" rotate={-3} /></div>
+  <div class="about__doodle about__doodle--bottom"><Annotation text="Лучший преподаватель" rotate={2} /></div>
+
+  <div class="about__top">
+    <p class="about__label reveal" style="--i:0"><span aria-hidden="true">●</span> Обо мне</p>
+    <h2 id="about-heading" class="about__heading reveal" style="--i:1">
+      <span class="about__heading-line">Социальный и</span>
+      <span class="about__heading-line about__heading-line--accent">организационный психолог</span>
+    </h2>
+    <p class="about__lead reveal" style="--i:2">
+      Антрополог со специализацией на инновационном лидерстве в IT, Обществе будущего и психологии успеха.
+    </p>
+    <p class="about__emphasis reveal" style="--i:3">
+      Канд. псих. наук и PhD в организационной психологии: НИУ ВШЭ и ИЭА РАН
+    </p>
+  </div>
+
+  <div class="about__bottom reveal" style="--i:4">
+    <div class="about__grid">
+      <div class="about__card">
+        <span class="about__card-index">01</span>
+        <h3 class="about__card-title">Образование</h3>
+        <ol class="about__list" aria-label="Образование">
+          {education.map((item) => <li>{item}</li>)}
+        </ol>
+      </div>
+
+      <div class="about__card">
+        <span class="about__card-index">02</span>
+        <h3 class="about__card-title">Награды и признание</h3>
+        <ol class="about__list about__list--honors" aria-label="Награды и признание">
+          {honors.map((item) => <li>{item}</li>)}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('.about__video');
+  const section = document.querySelector<HTMLElement>('.about');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let hasPlayedOnce = false;
+
+  video?.addEventListener('ended', () => {
+    hasPlayedOnce = true;
+  });
+
+  function syncMotionPreference() {
+    if (!video) return;
+    if (prefersReducedMotion.matches) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    } else if (!hasPlayedOnce) {
+      video.play().catch(() => {});
+    }
+  }
+
+  syncMotionPreference();
+  prefersReducedMotion.addEventListener('change', syncMotionPreference);
+
+  if (video && section && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (prefersReducedMotion.matches || hasPlayedOnce) continue;
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(section);
+  }
+</script>
+
+<style>
+  .about {
+    position: relative;
+    min-height: 100svh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    isolation: isolate;
+  }
+
+  .about__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    z-index: var(--z-base);
+  }
+
+  /* Same light-veil approach as the hero: keeps the real footage colors
+     recognizable while giving the dark ink text reliable contrast. */
+  .about__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-scrim);
+    background: linear-gradient(
+      180deg,
+      rgba(246, 244, 238, 0.6) 0%,
+      rgba(246, 244, 238, 0.3) 35%,
+      rgba(246, 244, 238, 0.45) 65%,
+      rgba(246, 244, 238, 0.75) 100%
+    );
+    pointer-events: none;
+  }
+
+  .about__doodle {
+    display: none;
+    position: absolute;
+    z-index: var(--z-content);
+    pointer-events: none;
+  }
+
+  .about__doodle--top {
+    top: 8%;
+    right: 6%;
+  }
+
+  .about__doodle--bottom {
+    top: 18%;
+    right: 14%;
+  }
+
+  @media (min-width: 1024px) {
+    .about__doodle {
+      display: block;
+    }
+  }
+
+  .about__top {
+    position: relative;
+    z-index: var(--z-content);
+    padding: clamp(7rem, 16vw, 10rem) clamp(1.25rem, 6vw, 5rem) 0;
+  }
+
+  .about__label {
+    margin: 0 0 clamp(1.5rem, 4vw, 2rem);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .about__label span {
+    color: var(--accent-deep);
+    font-size: 0.6rem;
+  }
+
+  .about__heading {
+    margin: 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .about__heading-line--accent {
+    color: var(--accent-deep);
+  }
+
+  .about__lead {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 42ch;
+  }
+
+  .about__emphasis {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    line-height: 1.35;
+    color: var(--ink);
+    max-width: 36ch;
+  }
+
+  .about__bottom {
+    position: relative;
+    z-index: var(--z-content);
+    padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 6vw, 5rem);
+    background: rgba(246, 244, 238, 0.85);
+    border-top: 1px solid var(--border);
+  }
+
+  .about__grid {
+    max-width: 78rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about__card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .about__card-index {
+    display: block;
+    margin: 0 0 0.625rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: var(--accent-deep);
+  }
+
+  .about__card-title {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--ink);
+  }
+
+  .about__list {
+    margin: 0;
+    padding: 0 0 0 1.125rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about__list li {
+    position: relative;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .about__list li::before {
+    content: '';
+    position: absolute;
+    top: 0.5em;
+    left: -1.125rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .about__list--honors li {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .about__list--honors li::before {
+    background: var(--accent-deep);
+  }
+
+  @media (min-width: 720px) {
+    .about__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

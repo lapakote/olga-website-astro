@@ -1,0 +1,90 @@
+---
+---
+
+<!-- A round floating action button, not a bar-with-a-close-button: that
+     "cookie banner" shape is exactly what trained people to ignore it
+     without reading. Appears once the visitor reaches the audience-fork
+     section, a much better interest signal than showing on page load. -->
+<a
+  class="fab is-hidden"
+  id="sticky-banner"
+  href="https://t.me/OlgaAbr"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Написать в Telegram"
+>
+  <span class="fab__label">Написать</span>
+  <span class="fab__icon" aria-hidden="true">→</span>
+</a>
+
+<script>
+  const banner = document.getElementById('sticky-banner');
+  const trigger = document.getElementById('fork-heading');
+
+  if (banner && trigger && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            banner.classList.remove('is-hidden');
+            observer.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(trigger);
+  }
+</script>
+
+<style>
+  .fab {
+    position: fixed;
+    right: clamp(1rem, 4vw, 1.75rem);
+    bottom: clamp(1rem, 4vw, 1.75rem);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 0.875rem 1.25rem;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    box-shadow: 0 12px 30px -8px rgba(27, 27, 22, 0.35);
+    transition: transform 280ms var(--ease-out-quart), opacity 280ms var(--ease-out-quart),
+      box-shadow 220ms var(--ease-out-quart);
+  }
+
+  .fab:hover,
+  .fab:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px -8px rgba(27, 27, 22, 0.4);
+  }
+
+  .fab.is-hidden {
+    transform: translateY(120%) scale(0.85);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .fab__icon {
+    display: inline-flex;
+    transition: transform 220ms var(--ease-out-quart);
+  }
+
+  .fab:hover .fab__icon,
+  .fab:focus-visible .fab__icon {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fab,
+    .fab__icon {
+      transition: none;
+    }
+  }
+</style>
